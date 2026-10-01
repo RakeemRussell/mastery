@@ -1,10 +1,7 @@
 # decisions.md
 
 **What this file is for:** a lightweight decision log (ADR-style) for every non-obvious technical
-choice made across the program and its three projects. The part that matters most is **alternatives
-rejected, and why** — that's the signal that separates "I followed a tutorial" from "I can explain
-my tradeoffs," which is exactly what a senior interviewer is listening for. One entry per decision,
-never edited after the fact — if a decision later turns out wrong, log a new entry that supersedes it.
+choice made and why.
 
 ---
 
@@ -39,9 +36,7 @@ provide.
   needs rebuilding later (e.g. after a snapshot mistake), the steps aren't captured anywhere.
 
 **Why scripted:** Every step is a plain command that can be copy-pasted to rebuild the exact same VM
-later, which matters for a program built around "break things on purpose and rebuild" — and it's
-consistent with the Infrastructure-as-Code habit the program is ultimately building toward with
-Terraform in month 3.
+later
 
 **Trade-off accepted:** The unattended install (`VBoxManage unattended install`) is more brittle
 than clicking through the graphical installer — it can fail silently on some ISO/VirtualBox version
@@ -69,28 +64,3 @@ it's worth building the habit of resolving "current" programmatically now rather
 version numbers.
 
 ---
-
-## D-04 — Tracking folder built with `mkdir -p` + `&&`-chained commands, not separate steps
-
-**Decision:**
-```bash
-mkdir -p ~/mastery/progress && cd ~/mastery && git init
-touch progress/progress.md progress/incident-journal.md progress/decisions.md
-```
-
-**Alternatives rejected:**
-- *Plain `mkdir ~/mastery/progress` in two separate calls* (one for `~/mastery`, one for
-  `~/mastery/progress`) — rejected in favor of `mkdir -p`, which creates both levels in one call and
-  doesn't error if either already exists. Plain `mkdir` only creates one new directory level at a
-  time as a safeguard against typos silently creating deep nested folders by accident; `-p` turns
-  that safeguard off deliberately, once, when nesting is actually intended.
-- *Running `mkdir`, `cd`, and `git init` as three unchained commands* — rejected in favor of joining
-  them with `&&`. Unchained, each command runs regardless of whether the previous one succeeded; if
-  `mkdir` had failed silently (e.g. a permissions issue), `cd` and `git init` could still run against
-  an unintended location. `&&` only runs the next command if the previous one exited successfully.
-- *Creating the three files with three separate `touch` calls* — rejected since `touch` accepts
-  multiple filenames in one invocation, so one call does the same job with less repetition.
-
-**Why this shape:** The goal was a single, re-runnable block that either fully succeeds or fails
-fast and visibly, rather than a sequence where a silent partial failure could leave things in a
-half-built, inconsistent state.

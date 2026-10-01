@@ -1,10 +1,6 @@
 # progress.md
 
-**What this file is for:** one row per week of the Zero to Hired program. Focus, whether the
-week's deliverable actually shipped, gate status, hours logged, and — the highest-value column —
-**what surprised me**. Surprise marks where your mental model was wrong, which is exactly what
-interviewers probe for later. Add a new row every Sunday (or whenever you close out a week),
-never edit old rows except to fix a typo.
+**What this file is for:** one row per week: week, focus, deliverable shipped (y/n), gate status, hours logged, and "what surprised me."
 
 ---
 

@@ -1,10 +1,9 @@
 # incident-journal.md
 
-**What this file is for:** every break/fix, every real error you hit and resolved — whether it's
-a deliberate Break/Fix Friday scenario or just something that broke while you were trying to do
+**What this file is for:** every break/fix, every real error hit and resolved — whether it's
+a deliberate Break/Fix Friday scenario or just something that broke while trying to do
 something else. Format: symptom → hypothesis → confirmed → root cause → fix → prevent →
-**surprised**. That last line matters more than the rest — it's the edge of what you didn't know.
-By week 26 this becomes your interview story bank for "tell me about a time you debugged something."
+**surprised**.
 
 ---
 
@@ -56,9 +55,7 @@ superseded.
 hardcoding one, then downloaded using that discovered name.
 
 **Prevent:** For any "latest version" download, prefer scripting a lookup of the current filename/
-version over hardcoding one — especially for anything that will be re-run more than once (this
-exact problem will recur for Terraform providers, AMIs, and Kubernetes versions later in the
-program).
+version over hardcoding one — especially for anything that will be re-run more than once.
 
 **Surprised:** How quickly a copy-pasted command from even a few days earlier had already gone
 stale — the URL structure was stable, but the specific file wasn't, and there was no error message
